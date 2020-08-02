@@ -1,10 +1,11 @@
-# build environment
-FROM node:14.7-alpine as build
+FROM node:alpine
+
 WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm ci --silent
-RUN npm install react-scripts@3.4.1 -g --silent
-COPY . ./
-RUN npm run build
+
+COPY package.json /app
+
+RUN yarn install && yarn cache clean
+
+COPY . /app
+
+CMD ["yarn", "run", "build"]
