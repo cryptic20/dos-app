@@ -1,0 +1,7 @@
+.git
+*.pyc
+README.md
+.dockerignore
+.eslintrc.json
+.prettierrc
+.gitignore
