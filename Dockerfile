@@ -1,5 +1,5 @@
 # stage1 - build react app first
-FROM node:14.7 as build
+FROM node:14.7-alpine as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json /app/
@@ -8,11 +8,11 @@ COPY . /app
 RUN yarn build
 
 # stage 2 - build the final image and copy the react build files
-FROM nginx:1.19.1 as final
+FROM nginx:1.19.1-alpine as final
 COPY --from=build /app/build /usr/share/nginx/html
-RUN adduser -D myuser
-USER myuser
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
 EXPOSE 80
+RUN adduser -D myuser
+USER myuser
 CMD ["nginx", "-g", "daemon off;"]
