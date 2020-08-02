@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t cryptic20/dos-app -f Dockerfile.dev .
+  - docker build -t cryptic20/dos-app -f Dockerfile .
 
 script:
   - docker run -e CI=true indreklasn/my-react-docker-app npm run test
