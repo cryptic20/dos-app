@@ -13,4 +13,4 @@ script:
 after_success:
   - docker build -t cryptic20/dos-app .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push indreklasn/my-react-docker-app
+  - docker push cryptic20/dos-app
