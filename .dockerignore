@@ -5,3 +5,7 @@ README.md
 .eslintrc.json
 .prettierrc
 .gitignore
+Dockerfile
+Dockerfile.dev
+node_modules
+build

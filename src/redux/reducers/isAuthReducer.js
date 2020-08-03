@@ -1,9 +1,8 @@
-const isAuthReducer = (state = false, action) => {
+export const isAuthReducer = (state = false, action) => {
   switch (action.type) {
-    case 'GET_USER_AUTH':
-      return (state = action.authenticated)
+    case 'AUTHENTICATE_USER':
+      return (state = action.check)
     default:
       return state
   }
 }
-export default isAuthReducer

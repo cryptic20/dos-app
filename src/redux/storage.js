@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import allReducers from './reducers/'
+import { allReducers } from './reducers/'
 import { loadState, saveState } from './localStorage'
 import { throttle } from 'lodash'
 
@@ -13,6 +13,7 @@ export const store = createStore(
 
 store.subscribe(() => {
   saveState({
+    isAuthenticated: store.getState().isAuthenticated,
     userJWT: store.getState().userJWT
   })
 })
@@ -20,6 +21,7 @@ store.subscribe(() => {
 store.subscribe(
   throttle(() => {
     saveState({
+      isAuthenticated: store.getState().isAuthenticated,
       userJWT: store.getState().userJWT
     })
   }, 1000)
