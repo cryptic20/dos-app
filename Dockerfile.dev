@@ -1,11 +1,18 @@
-FROM node:14.7-alpine
+# pull official base image
+FROM node:latest
 
+# set working directory
 WORKDIR /app
 
-COPY package.json /app
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-RUN yarn install
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
 
-COPY . /app
+# add app
+COPY . .
 
-CMD ["yarn", "run", "start"]
+# start app
+CMD ["npm", "start"]

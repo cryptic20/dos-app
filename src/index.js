@@ -1,12 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import App from './App'
+import App from './components/app/App'
+import { Provider } from 'react-redux'
+import { ApolloProvider } from '@apollo/client'
+import { client } from './api'
+import { store } from './redux/storage'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )
