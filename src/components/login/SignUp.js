@@ -90,8 +90,13 @@ export default function SignInSide () {
                   id="username"
                   label="Username"
                   autoFocus
-                  inputRef={register}
+                  inputRef={register({
+                    pattern: /^\S+\w{8,32}\S{1,}/,
+                    minLength: 6,
+                    maxLength: 25
+                  })}
                 />
+                {errors.username && 'invalid username!'}
               </Grid>
               <Grid item xs={12}>
                 <TextField
