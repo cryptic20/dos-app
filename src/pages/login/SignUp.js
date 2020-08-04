@@ -1,5 +1,5 @@
 import withRoot from '../../modules/style/withRoot'
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -14,6 +14,10 @@ import { useForm } from 'react-hook-form'
 import { useHistory, useLocation } from 'react-router-dom'
 import AppBarViews from '../../modules/views/AppBarViews'
 import Copyright from '../../modules/components/Copyright'
+import { useMutation } from '@apollo/client'
+import { REGISTER_USER } from '../../modules/api/'
+import { useSelector } from 'react-redux'
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center'
   },
   paper: {
-    margin: theme.spacing(15, 5),
+    margin: theme.spacing(12, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -54,9 +58,33 @@ function SignUp () {
   const { from } = location.state || { from: { pathname: '/sign-up' } }
   const classes = useStyles()
   const { register, errors, watch, handleSubmit } = useForm()
+  const [errorAlert, setErrorAlert] = useState('')
+  const [successAlert, setSuccessAlert] = useState(false)
+  const isAuthenticated = useSelector((state) => state.isAuthenticated)
+  const userVerified = useSelector((state) => state.userVerified)
+  const [registerUser, { loading, error, data }] = useMutation(REGISTER_USER, {
+    onCompleted: (data) => {
+      if (!data.register.success) {
+        setErrorAlert(Object.values(data.register.errors)[0][0].message)
+      } else {
+        setErrorAlert('')
+        setSuccessAlert(true)
+        history.replace(from)
+      }
+    }
+  })
+
   const onSubmit = (input) => {
-    console.log(input)
+    registerUser({
+      variables: {
+        username: input.username,
+        email: input.email,
+        password1: input.password1,
+        password2: input.password2
+      }
+    })
   }
+
   return (
     <React.Fragment>
       <Grid container component="main" className={classes.root}>
@@ -70,6 +98,12 @@ function SignUp () {
             <Typography component="h1" variant="h5">
               Sign Up
             </Typography>
+            {errorAlert && <Alert severity="error">{errorAlert}</Alert>}
+            {successAlert && (
+              <Alert severity="success">
+                Success! An email has been sent to verify your account!
+              </Alert>
+            )}
             <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -83,8 +117,8 @@ function SignUp () {
                     label="Username"
                     autoFocus
                     inputRef={register({
-                      pattern: /^\S+\w{8,32}\S{1,}/,
-                      minLength: 6,
+                      pattern: /^[a-zA-Z0-9][a-zA-Z0-9_]{2,29}$/,
+                      minLength: 5,
                       maxLength: 25
                     })}
                   />
@@ -159,10 +193,10 @@ function SignUp () {
                 </Grid>
               </Grid>
             </form>
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: Please try again</p>}
           </div>
-          <Box>
-            <Copyright />
-          </Box>
+          <Copyright />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -14,7 +14,8 @@ export const store = createStore(
 store.subscribe(() => {
   saveState({
     isAuthenticated: store.getState().isAuthenticated,
-    userJWT: store.getState().userJWT
+    userJWT: store.getState().userJWT,
+    userVerified: store.getState().userVerified
   })
 })
 
@@ -22,7 +23,8 @@ store.subscribe(
   throttle(() => {
     saveState({
       isAuthenticated: store.getState().isAuthenticated,
-      userJWT: store.getState().userJWT
+      userJWT: store.getState().userJWT,
+      userVerified: store.getState().userVerified
     })
   }, 1000)
 )

@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
@@ -18,7 +17,8 @@ import Paper from '@material-ui/core/Paper'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setUserJWT,
-  setAuthenticatedStatus
+  setAuthenticatedStatus,
+  setUserVerified
 } from '../../modules/redux/actions/'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
@@ -68,14 +68,16 @@ function SignIn () {
   const [errorAlert, setErrorAlert] = useState(false)
   const { register, handleSubmit } = useForm()
   const isAuthenticated = useSelector((state) => state.isAuthenticated)
+  const userVerified = useSelector((state) => state.userVerified)
   const [tokenAuth, { loading, error }] = useMutation(LOG_IN, {
     onCompleted: (data) => {
       if (!data.tokenAuth.success) {
         setErrorAlert(true)
       } else {
-        history.replace(from)
+        dispatch(setUserVerified(data.tokenAuth.user.verified))
         dispatch(setUserJWT(data.tokenAuth.token))
         dispatch(setAuthenticatedStatus(true))
+        history.replace(from)
       }
     }
   })
@@ -85,8 +87,10 @@ function SignIn () {
       variables: { email: input.email, password: input.password }
     })
   }
-  if (isAuthenticated) {
+  if (isAuthenticated && userVerified) {
     return <Redirect push to="/dashboard" />
+  } else if (isAuthenticated && !userVerified) {
+    return <Redirect push to="/verify" />
   }
   return (
     <React.Fragment>
@@ -160,9 +164,7 @@ function SignIn () {
             {loading && <p>Loading...</p>}
             {error && <p>Error: Please try again</p>}
           </div>
-          <Box>
-            <Copyright />
-          </Box>
+          <Copyright />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -7,6 +7,9 @@ export const LOG_IN = gql`
       errors
       token
       refreshToken
+      user {
+        verified
+      }
     }
   }
 `

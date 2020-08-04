@@ -3,7 +3,11 @@ import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { useDispatch } from 'react-redux'
-import { setUserJWT, setAuthenticatedStatus } from '../redux/actions/'
+import {
+  setUserJWT,
+  setAuthenticatedStatus,
+  setUserVerified
+} from '../redux/actions/'
 import { useHistory } from 'react-router-dom'
 
 function SignedInIcons () {
@@ -17,6 +21,7 @@ function SignedInIcons () {
           onClick={() => {
             dispatch(setUserJWT(''))
             dispatch(setAuthenticatedStatus(false))
+            dispatch(setUserVerified(false))
             history.push('/')
           }}
         >

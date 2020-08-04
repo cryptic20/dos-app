@@ -6,6 +6,7 @@ import SignedInIcons from '../../modules/components/SignedInIcons'
 
 function NavIcons () {
   const isAuthenticated = useSelector((state) => state.isAuthenticated)
+
   return (
     <div style={{ marginLeft: 'auto' }}>
       <Grid container direction="row" justify="center" alignItems="center">

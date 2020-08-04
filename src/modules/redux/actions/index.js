@@ -7,3 +7,8 @@ export const setAuthenticatedStatus = (check) => ({
   type: 'AUTHENTICATE_USER',
   check
 })
+
+export const setUserVerified = (check) => ({
+  type: 'SET_USER_VERIFIED',
+  check
+})
