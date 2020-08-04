@@ -1,32 +1,22 @@
-import { Dashboard, PickUp, Schedule, Settings } from '../../pages/dashboard/'
-
 export const routes = [
   {
-    primaryText: 'Dashboard',
-    icon: 'dashboard',
-    path: '/dashboard',
-    exact: false,
-    component: Dashboard
+    primaryText: 'Analytics',
+    icon: 'analytics',
+    path: '/dashboard'
   },
   {
     primaryText: 'Schedule',
     icon: 'event_note',
-    path: '/schedule',
-    exact: false,
-    component: Schedule
+    path: '/dashboard/schedule'
   },
   {
     primaryText: 'Pick Up',
     icon: 'delete_sweep',
-    path: '/pickup',
-    exact: false,
-    component: PickUp
+    path: '/dashboard/pickup'
   },
   {
     primaryText: 'Settings',
     icon: 'settings',
-    path: '/settings',
-    exact: false,
-    component: Settings
+    path: '/dashboard/settings'
   }
 ]

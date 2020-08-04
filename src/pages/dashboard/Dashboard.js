@@ -1,13 +1,19 @@
 import withRoot from '../../modules/style/withRoot'
 import React from 'react'
-import AppBarViews from '../../modules/views/AppBarViews'
-import AppFooterViews from '../../modules/views/AppFooterViews'
 import DashBoardDrawer from '../../modules/views/DashBoardDrawer'
-import Container from '@material-ui/core/Container'
-import { Switch, Route } from 'react-router-dom'
-import { routes } from '../../modules/components/RouteList'
-
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch
+} from 'react-router-dom'
+import Analytics from './Analytics'
+import Schedule from './Schedule'
+import PickUp from './PickUp'
+import Settings from './Settings'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +34,20 @@ function Dashboard () {
       <DashBoardDrawer />
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <Switch>
+          <Route exact path="/dashboard">
+            <Analytics />
+          </Route>
+          <Route path="/dashboard/schedule">
+            <Schedule />
+          </Route>
+          <Route path="/dashboard/pickup">
+            <PickUp />
+          </Route>
+          <Route path="/dashboard/settings">
+            <Settings />
+          </Route>
+        </Switch>
       </main>
     </div>
   )
