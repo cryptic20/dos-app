@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import App from './components/app/App'
+import App from './pages/App'
 import { Provider } from 'react-redux'
 import { ApolloProvider } from '@apollo/client'
-import { client } from './api'
-import { store } from './redux/storage'
+import { client } from './modules/api/'
+import { store } from './modules/redux/storage'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
