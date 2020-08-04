@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
@@ -16,7 +15,6 @@ import AppBarViews from '../../modules/views/AppBarViews'
 import Copyright from '../../modules/components/Copyright'
 import { useMutation } from '@apollo/client'
 import { REGISTER_USER } from '../../modules/api/'
-import { useSelector } from 'react-redux'
 import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
@@ -60,9 +58,7 @@ function SignUp () {
   const { register, errors, watch, handleSubmit } = useForm()
   const [errorAlert, setErrorAlert] = useState('')
   const [successAlert, setSuccessAlert] = useState(false)
-  const isAuthenticated = useSelector((state) => state.isAuthenticated)
-  const userVerified = useSelector((state) => state.userVerified)
-  const [registerUser, { loading, error, data }] = useMutation(REGISTER_USER, {
+  const [registerUser, { loading, error }] = useMutation(REGISTER_USER, {
     onCompleted: (data) => {
       if (!data.register.success) {
         setErrorAlert(Object.values(data.register.errors)[0][0].message)

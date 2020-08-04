@@ -40,7 +40,7 @@ function ForgotPassword () {
   return (
     <React.Fragment>
       <AppBarViews />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className={classes.root}>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -48,13 +48,14 @@ function ForgotPassword () {
           <Typography component="h1" variant="h5">
             Forgot Password
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form}>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
                 id="email"
+                type="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"

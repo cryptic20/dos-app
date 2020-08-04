@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import AppBarViews from '../../modules/views/AppBarViews'
 import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
 import Paper from '@material-ui/core/Paper'
 import { useDispatch, useSelector } from 'react-redux'
 import {
