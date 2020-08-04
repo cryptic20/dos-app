@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import { useForm } from 'react-hook-form'
-import { Redirect, useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import AppBarViews from '../../modules/views/AppBarViews'
 import Copyright from '../../modules/components/Copyright'
 
@@ -131,7 +131,7 @@ function SignUp () {
                     autoComplete="current-password"
                     inputRef={register({
                       validate: (value) => {
-                        return value === watch('password1') // value is from password2 and watch will return value from password1
+                        return value === watch('password1')
                       }
                     })}
                   />
@@ -149,7 +149,11 @@ function SignUp () {
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
-                  <Link href="/login" variant="body2">
+                  <Link
+                    component="button"
+                    onClick={() => history.push('/sign-in')}
+                    variant="body2"
+                  >
                     Already have an account? Sign in
                   </Link>
                 </Grid>

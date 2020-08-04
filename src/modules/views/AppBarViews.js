@@ -5,7 +5,6 @@ import Link from '@material-ui/core/Link'
 import AppBar from '../components/AppBar'
 import Toolbar, { styles as toolbarStyles } from '../components/Toolbar'
 import NavIcons from './NavIcons'
-import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 const styles = (theme) => ({
@@ -40,7 +39,6 @@ const styles = (theme) => ({
 function AppBarViews (props) {
   const history = useHistory()
   const { classes } = props
-  const isAuthenticated = useSelector((state) => state.isAuthenticated)
   return (
     <div>
       <AppBar position="fixed">
