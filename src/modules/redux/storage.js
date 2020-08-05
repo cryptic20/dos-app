@@ -15,7 +15,8 @@ store.subscribe(() => {
   saveState({
     isAuthenticated: store.getState().isAuthenticated,
     userJWT: store.getState().userJWT,
-    userVerified: store.getState().userVerified
+    userVerified: store.getState().userVerified,
+    refreshToken: store.getState().refreshToken
   })
 })
 
@@ -24,7 +25,8 @@ store.subscribe(
     saveState({
       isAuthenticated: store.getState().isAuthenticated,
       userJWT: store.getState().userJWT,
-      userVerified: store.getState().userVerified
+      userVerified: store.getState().userVerified,
+      refreshToken: store.getState().refreshToken
     })
   }, 1000)
 )

@@ -12,3 +12,8 @@ export const setUserVerified = (check) => ({
   type: 'SET_USER_VERIFIED',
   check
 })
+
+export const setUserRefreshToken = (token) => ({
+  type: 'SET_USER_REFRESH_TOKEN',
+  token
+})

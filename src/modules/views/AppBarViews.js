@@ -16,7 +16,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between'
   },
   left: {
-    flex: 1
+    flexGrow: 1
   },
   leftLinkActive: {
     color: theme.palette.common.white

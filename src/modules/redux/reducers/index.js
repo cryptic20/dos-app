@@ -1,4 +1,5 @@
 import { userTokenReducer } from './userTokenReducer'
+import { refreshTokenReducer } from './refreshTokenReducer'
 import { isAuthReducer } from './isAuthReducer'
 import { isVerifiedReducer } from './isVerifiedReducer'
 import { combineReducers } from 'redux'
@@ -6,6 +7,6 @@ import { combineReducers } from 'redux'
 export const allReducers = combineReducers({
   isAuthenticated: isAuthReducer,
   userJWT: userTokenReducer,
-  userVerified: isVerifiedReducer,
-  darkMode: (state = {}) => state
+  refreshToken: refreshTokenReducer,
+  userVerified: isVerifiedReducer
 })

@@ -1,7 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-export default function PickUp () {
-  const { topicId } = useParams()
+import { useQuery } from '@apollo/client'
+import { GET_PICKUP_DATA } from '../../modules/api/'
 
-  return <div>PickUp</div>
+export default function PickUp () {
+  const { loading, error, data } = useQuery(GET_PICKUP_DATA)
+  if (loading) return <div>loading...</div>
+  if (error) return `Error! ${error.message}`
+  console.log(data)
+  return <div>pickup</div>
 }

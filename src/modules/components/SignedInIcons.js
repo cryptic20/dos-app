@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux'
 import {
   setUserJWT,
   setAuthenticatedStatus,
-  setUserVerified
+  setUserVerified,
+  setUserRefreshToken
 } from '../redux/actions/'
 import { useHistory, useLocation } from 'react-router-dom'
 
@@ -35,6 +36,7 @@ function SignedInIcons () {
           aria-label="Logout Button"
           onClick={() => {
             dispatch(setUserJWT(''))
+            dispatch(setUserRefreshToken(''))
             dispatch(setAuthenticatedStatus(false))
             dispatch(setUserVerified(false))
             history.push('/')
