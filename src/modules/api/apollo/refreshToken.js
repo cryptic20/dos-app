@@ -18,8 +18,6 @@ const refreshToken = async (store) => {
         store.dispatch(setUserJWT(data.token))
         store.dispatch(setUserRefreshToken(data.refreshToken))
         window.location.reload(true)
-      } else {
-        console.log('refresh token has expired! user session will expire!')
       }
     })
     .catch(console.error)

@@ -38,13 +38,13 @@ function Dashboard () {
           <Route exact path="/dashboard">
             <Analytics />
           </Route>
-          <Route path="/dashboard/schedule">
+          <Route exact path="/dashboard/schedule">
             <Schedule />
           </Route>
-          <Route path="/dashboard/pickup">
+          <Route exact path="/dashboard/pickup">
             <PickUp />
           </Route>
-          <Route path="/dashboard/settings">
+          <Route exact path="/dashboard/settings">
             <Settings />
           </Route>
         </Switch>

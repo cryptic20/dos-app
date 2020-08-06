@@ -22,3 +22,8 @@ export const setPickUpData = (data) => ({
   type: 'SET_PICKUP_DATA',
   data
 })
+
+export const logOut = (state) => ({
+  type: 'USER_LOGOUT',
+  state
+})
