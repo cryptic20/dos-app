@@ -17,3 +17,8 @@ export const setUserRefreshToken = (token) => ({
   type: 'SET_USER_REFRESH_TOKEN',
   token
 })
+
+export const setPickUpData = (data) => ({
+  type: 'SET_PICKUP_DATA',
+  data
+})
