@@ -7,6 +7,10 @@ import { GET_SCHEDULE_DATA } from '../../modules/api/'
 import { setScheduleData } from '../../modules/redux/actions/'
 import { store } from '../../modules/redux/storage'
 
+const getLookUp = () => {
+  console.log('look')
+}
+
 export default function Schedule () {
   const { loading, error, data } = useQuery(GET_SCHEDULE_DATA)
   const [successAlert, setSuccessAlert] = useState(false)
@@ -48,7 +52,6 @@ export default function Schedule () {
     }
     return []
   }, [data])
-
   const initialData = useSelector((state) => state.scheduleData)
   if (initialData.length < 1) {
     store.dispatch(setScheduleData(mappedData))
@@ -59,29 +62,78 @@ export default function Schedule () {
       field: 'node.start',
       type: 'datetime'
     },
-    { title: 'end', field: 'node.end', type: 'datetime' },
     {
-      title: 'nextEvent',
-      field: 'node.nextEvent',
+      title: 'end',
+      field: 'node.end',
       type: 'datetime',
-      editable: 'never'
+      validate: (rowData) =>
+        rowData && rowData.node && rowData.node.start > rowData.node.end
+          ? { isValid: false, helperText: 'end date must be before start date' }
+          : true
     },
-    { title: 'repeat', field: 'node.repeat' },
+    {
+      title: 'bin type',
+      field: 'node.event.info.binType',
+      lookup: {
+        Compost: 'Compost',
+        Landfill: 'Landfill',
+        Wood: 'Wood',
+        Metal: 'Metal',
+        'Paper/Cardboard': 'Paper/Cardboard',
+        'Plastic Wrap': 'Plastic Wrap',
+        'Plastic Bottles/Containers': 'Plastic Bottles/Containers',
+        'Glass Bottles/Containers': 'Glass Bottles/Containers',
+        'Aluminum Cans/Containers': 'Aluminum Cans/Containers',
+        'E-waste': 'E-waste'
+      }
+    },
+    {
+      title: 'lbs',
+      field: 'node.event.info.lbs',
+      type: 'numeric',
+      validate: (rowData) =>
+        rowData &&
+        rowData.node &&
+        rowData.node.event &&
+        rowData.node.event.info &&
+        rowData.node.event.info.lbs <= 0
+          ? { isValid: false, helperText: 'lbs must be more than 0' }
+          : true
+    },
+    {
+      title: 'instructions',
+      field: 'node.event.info.instructions'
+    },
+    {
+      title: 'repeat',
+      field: 'node.repeat',
+      lookup: {
+        'RRULE:FREQ=DAILY': 'Daily',
+        'RRULE:FREQ=WEEKLY': 'Weekly',
+        'RRULE:FREQ=MONTHLY': 'Monthly',
+        'RRULE:FREQ=YEARLY': 'Yearly'
+      }
+    },
     {
       title: 'repeat until',
       field: 'node.repeatUntil',
       type: 'date',
       editable: 'never'
+    },
+    {
+      title: 'next pick up date',
+      field: 'node.nextEvent',
+      type: 'datetime',
+      editable: 'never'
     }
   ]
-
   if (loading) return <div>loading...</div>
   if (error) return <div>error: {error.message}</div>
   return (
     <React.Fragment>
       <p>{successAlert && <Alert severity="success">Success!</Alert>}</p>
       <MaterialTable
-        title="Pick Up Info"
+        title="Schedule"
         data={initialData}
         columns={columns}
         options={{
@@ -92,7 +144,7 @@ export default function Schedule () {
             new Promise((resolve, reject) => {
               setTimeout(() => {
                 // setData([...initialData, newData])
-
+                console.log(newData)
                 resolve()
               }, 1000)
             }),

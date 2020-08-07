@@ -75,7 +75,11 @@ export default function Table () {
     {
       title: 'lbs',
       field: 'node.lbs',
-      type: 'numeric'
+      type: 'numeric',
+      validate: (rowData) =>
+        rowData && rowData.node && rowData.node.lbs <= 0
+          ? { isValid: false, helperText: 'lbs must be more than 0' }
+          : true
     },
     { title: 'instructions', field: 'node.instructions' }
   ]
