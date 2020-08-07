@@ -8,6 +8,8 @@ export const LOG_IN = gql`
       token
       refreshToken
       user {
+        email
+        username
         verified
       }
     }

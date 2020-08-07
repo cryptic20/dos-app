@@ -27,6 +27,16 @@ export const setScheduleData = (data) => ({
   data
 })
 
+export const setUserEmail = (data) => ({
+  type: 'SET_USER_EMAIL',
+  data
+})
+
+export const setUserUsername = (data) => ({
+  type: 'SET_USER_USERNAME',
+  data
+})
+
 export const logOut = (state) => ({
   type: 'USER_LOGOUT',
   state

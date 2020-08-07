@@ -12,3 +12,4 @@ export {
   CREATE_SCHEDULE_DATA,
   DELETE_SCHEDULE_DATA
 } from './apollo/schedule.js'
+export { GET_USER_SETTINGS, EDIT_USER_SETTINGS } from './apollo/settings'

@@ -16,7 +16,8 @@ store.subscribe(() => {
     isAuthenticated: store.getState().isAuthenticated,
     userJWT: store.getState().userJWT,
     userVerified: store.getState().userVerified,
-    refreshToken: store.getState().refreshToken
+    refreshToken: store.getState().refreshToken,
+    userInfo: store.getState().userInfo
   })
 })
 
@@ -26,7 +27,8 @@ store.subscribe(
       isAuthenticated: store.getState().isAuthenticated,
       userJWT: store.getState().userJWT,
       userVerified: store.getState().userVerified,
-      refreshToken: store.getState().refreshToken
+      refreshToken: store.getState().refreshToken,
+      userInfo: store.getState().userInfo
     })
   }, 1000)
 )

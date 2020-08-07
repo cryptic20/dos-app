@@ -12,7 +12,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import SignedInIcons from '../../modules/components/SignedInIcons'
 import DrawerList from '../components/DrawerList'
 import Avatar from '../components/Avatar'
-
+import Notifications from './Notifications'
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -92,6 +92,7 @@ function DashBoardDrawer (props) {
               justify="center"
               alignItems="center"
             >
+              <Notifications />
               <SignedInIcons />
             </Grid>
           </div>

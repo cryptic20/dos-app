@@ -1,15 +1,8 @@
 import withRoot from '../../modules/style/withRoot'
 import React from 'react'
 import DashBoardDrawer from '../../modules/views/DashBoardDrawer'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch
-} from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import { Switch, Route } from 'react-router-dom'
 import Analytics from './Analytics'
 import Schedule from './Schedule'
 import PickUp from './PickUp'

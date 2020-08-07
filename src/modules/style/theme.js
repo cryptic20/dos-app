@@ -91,7 +91,7 @@ const theme = {
     },
     subtitle1: {
       ...rawTheme.typography.subtitle1,
-      fontSize: 18
+      fontSize: 15
     },
     body1: {
       ...rawTheme.typography.body2,

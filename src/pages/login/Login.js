@@ -18,7 +18,9 @@ import {
   setUserJWT,
   setAuthenticatedStatus,
   setUserVerified,
-  setUserRefreshToken
+  setUserRefreshToken,
+  setUserUsername,
+  setUserEmail
 } from '../../modules/redux/actions/'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
@@ -74,7 +76,10 @@ function SignIn () {
       if (!data.tokenAuth.success) {
         setErrorAlert(true)
       } else {
+        console.log(data)
         dispatch(setUserVerified(data.tokenAuth.user.verified))
+        dispatch(setUserUsername(data.tokenAuth.user.username))
+        dispatch(setUserEmail(data.tokenAuth.user.email))
         dispatch(setUserJWT(data.tokenAuth.token))
         dispatch(setUserRefreshToken(data.tokenAuth.refreshToken))
         dispatch(setAuthenticatedStatus(true))

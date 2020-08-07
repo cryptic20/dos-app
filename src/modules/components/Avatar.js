@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Avatar from '@material-ui/core/Avatar'
 import { makeStyles } from '@material-ui/core/styles'
-
+import { useSelector } from 'react-redux'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AvatarComponent () {
   const classes = useStyles()
+  const userInfo = useSelector((state) => state.userInfo)
 
   return (
     <div className={classes.header}>
@@ -29,10 +30,10 @@ function AvatarComponent () {
         <Avatar alt="Sherwin Wyco" className={classes.large} />
         <div style={{ paddingBottom: 16 }} />
         <Typography variant="h6" noWrap>
-          username
+          {userInfo.username}
         </Typography>
         <Typography variant="subtitle1" noWrap gutterBottom>
-          email
+          {userInfo.email}
         </Typography>
       </Grid>
     </div>
