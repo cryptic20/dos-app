@@ -7,3 +7,4 @@ export {
   UPDATE_PICKUP_DATA,
   DELETE_PICKUP_DATA
 } from './apollo/PickUp'
+export { GET_SCHEDULE_DATA } from './apollo/schedule.js'

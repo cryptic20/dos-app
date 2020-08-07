@@ -3,6 +3,7 @@ import { refreshTokenReducer } from './refreshTokenReducer'
 import { isAuthReducer } from './isAuthReducer'
 import { isVerifiedReducer } from './isVerifiedReducer'
 import { pickUpDataReducer } from './pickUpDataReducer'
+import { scheduleDataReducer } from './scheduleDataReducer'
 import { combineReducers } from 'redux'
 
 export const allReducers = combineReducers({
@@ -10,5 +11,6 @@ export const allReducers = combineReducers({
   userJWT: userTokenReducer,
   refreshToken: refreshTokenReducer,
   userVerified: isVerifiedReducer,
-  pickUpData: pickUpDataReducer
+  pickUpData: pickUpDataReducer,
+  scheduleData: scheduleDataReducer
 })

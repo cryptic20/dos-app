@@ -12,7 +12,7 @@ import {
 import { setPickUpData } from '../../modules/redux/actions/'
 import { store } from '../../modules/redux/storage'
 
-export default function Table (props) {
+export default function Table () {
   const { loading, error, data } = useQuery(GET_PICKUP_DATA)
   const [successAlert, setSuccessAlert] = useState(false)
   const [createPickup] = useMutation(CREATE_PICKUP_DATA, {
