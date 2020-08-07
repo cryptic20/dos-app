@@ -3,7 +3,11 @@ import { useQuery, useMutation } from '@apollo/client'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
 import Alert from '@material-ui/lab/Alert'
-import { GET_SCHEDULE_DATA, CREATE_SCHEDULE_DATA } from '../../modules/api/'
+import {
+  GET_SCHEDULE_DATA,
+  CREATE_SCHEDULE_DATA,
+  DELETE_SCHEDULE_DATA
+} from '../../modules/api/'
 import { setScheduleData } from '../../modules/redux/actions/'
 import { store } from '../../modules/redux/storage'
 import { onError } from '@apollo/client/link/error'
@@ -14,6 +18,16 @@ export default function Schedule () {
   const [createSchedule] = useMutation(CREATE_SCHEDULE_DATA, {
     onCompleted: (data) => {
       if (data.createSchedule.success) {
+        setSuccessAlert(true)
+      } else {
+        setSuccessAlert(false)
+      }
+    }
+  })
+  const [deleteSchedule] = useMutation(DELETE_SCHEDULE_DATA, {
+    onCompleted: (data) => {
+      console.log(data)
+      if (data.deleteSchedule.success) {
         setSuccessAlert(true)
       } else {
         setSuccessAlert(false)
@@ -126,65 +140,17 @@ export default function Schedule () {
               store.dispatch(setScheduleData([...initialData, newData]))
             })
           },
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                const dataUpdate = [...initialData]
-                const index = oldData.tableData.id
-                dataUpdate[index] = newData
-                // setData([...dataUpdate])
-
-                resolve()
-              }, 1000)
-            }),
-          onRowDelete: (oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                const dataDelete = [...initialData]
-                const index = oldData.tableData.id
-                dataDelete.splice(index, 1)
-                // setData([...dataDelete])
-
-                resolve()
-              }, 1000)
+          onRowDelete: async (oldData) =>
+            await deleteSchedule({
+              variables: {
+                id: oldData.node.id
+              }
+            }).then(() => {
+              const dataDelete = [...initialData]
+              const index = oldData.node.id
+              dataDelete.splice(index, 1)
+              store.dispatch(setScheduleData([...dataDelete]))
             })
-          // onRowAdd: async (newData) => {
-          //   await createSchedule({
-          //     variables: {
-          //       binType: newData.node.binType,
-          //       lbs: newData.node.lbs,
-          //       instructions: newData.node.instructions
-          //     }
-          //   }).then(() => {
-          //     store.dispatch(setPickUpData([...initialData, newData]))
-          //   })
-          // },
-          // onRowUpdate: async (newData, oldData) => {
-          //   await updateSchedule({
-          //     variables: {
-          //       id: oldData.node.id,
-          //       binType: newData.node.binType,
-          //       lbs: newData.node.lbs,
-          //       instructions: newData.node.instructions
-          //     }
-          //   }).then(() => {
-          //     const dataUpdate = [...initialData]
-          //     const index = oldData.tableData.id
-          //     dataUpdate[index] = newData
-          //     store.dispatch(setPickUpData([...dataUpdate]))
-          //   })
-          // },
-          // onRowDelete: async (oldData) =>
-          //   await deleteSchedule({
-          //     variables: {
-          //       id: oldData.node.id
-          //     }
-          //   }).then(() => {
-          //     const dataDelete = [...initialData]
-          //     const index = oldData.tableData.id
-          //     dataDelete.splice(index, 1)
-          //     store.dispatch(setPickUpData([...dataDelete]))
-          //   })
         }}
       />
     </React.Fragment>

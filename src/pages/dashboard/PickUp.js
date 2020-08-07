@@ -44,16 +44,27 @@ export default function Table () {
     }
   })
 
-  const mappedData = useMemo(() => {
+  const pickUpDataMemo = useMemo(() => {
     if (data) {
       return data.me.pickupinfoSet.edges.map(({ __typename, ...item }) => item)
     }
     return []
   }, [data])
 
+  const completedPickUpDataMemo = useMemo(() => {
+    if (data) {
+      console.log(data)
+
+      return data.me.completedpickupSet.edges.map(
+        ({ __typename, ...item }) => item
+      )
+    }
+    return []
+  }, [data])
+
   const initialData = useSelector((state) => state.pickUpData)
   if (initialData.length < 1) {
-    store.dispatch(setPickUpData(mappedData))
+    store.dispatch(setPickUpData(pickUpDataMemo))
   }
   const columns = [
     {
@@ -134,6 +145,20 @@ export default function Table () {
               dataDelete.splice(index, 1)
               store.dispatch(setPickUpData([...dataDelete]))
             })
+        }}
+      />
+      <br />
+      <MaterialTable
+        title="Completed Pick Ups"
+        data={completedPickUpDataMemo}
+        columns={[
+          { title: 'pick up date', field: 'node.pickUpDate', type: 'datetime' },
+          { title: 'bin type', field: 'node.pickUpInfo.binType' },
+          { title: 'lbs', field: 'node.pickUpInfo.lbs' },
+          { title: 'instructions', field: 'node.pickUpInfo.instructions' }
+        ]}
+        options={{
+          exportButton: true
         }}
       />
     </React.Fragment>

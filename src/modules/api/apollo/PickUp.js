@@ -14,6 +14,20 @@ export const GET_PICKUP_DATA = gql`
           }
         }
       }
+      completedpickupSet {
+        edges {
+          node {
+            id
+            pickUpInfo {
+              id
+              binType
+              lbs
+              instructions
+            }
+            pickUpDate
+          }
+        }
+      }
     }
   }
 `
