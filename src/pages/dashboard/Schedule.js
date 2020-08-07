@@ -3,51 +3,25 @@ import { useQuery, useMutation } from '@apollo/client'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
 import Alert from '@material-ui/lab/Alert'
-import { GET_SCHEDULE_DATA } from '../../modules/api/'
+import { GET_SCHEDULE_DATA, CREATE_SCHEDULE_DATA } from '../../modules/api/'
 import { setScheduleData } from '../../modules/redux/actions/'
 import { store } from '../../modules/redux/storage'
-
-const getLookUp = () => {
-  console.log('look')
-}
+import { onError } from '@apollo/client/link/error'
 
 export default function Schedule () {
-  const { loading, error, data } = useQuery(GET_SCHEDULE_DATA)
+  const { loading, error, data, refetch } = useQuery(GET_SCHEDULE_DATA)
   const [successAlert, setSuccessAlert] = useState(false)
-  // const [createSchedule] = useMutation(GET_SCHEDULE_DATA, {
-  //   onCompleted: (data) => {
-  //     if (data.createPickup.success) {
-  //       setSuccessAlert(true)
-  //     } else {
-  //       console.log(data)
-  //       setSuccessAlert(false)
-  //     }
-  //   }
-  // })
-  // const [updateSchedule] = useMutation(GET_SCHEDULE_DATA, {
-  //   onCompleted: (data) => {
-  //     if (data.createPickup.success) {
-  //       setSuccessAlert(true)
-  //     } else {
-  //       console.log(data)
-  //       setSuccessAlert(false)
-  //     }
-  //   }
-  // })
-  // const [deleteSchedule] = useMutation(GET_SCHEDULE_DATA, {
-  //   onCompleted: (data) => {
-  //     if (data.createPickup.success) {
-  //       setSuccessAlert(true)
-  //     } else {
-  //       console.log(data)
-  //       setSuccessAlert(false)
-  //     }
-  //   }
-  // })
-
+  const [createSchedule] = useMutation(CREATE_SCHEDULE_DATA, {
+    onCompleted: (data) => {
+      if (data.createSchedule.success) {
+        setSuccessAlert(true)
+      } else {
+        setSuccessAlert(false)
+      }
+    }
+  })
   const mappedData = useMemo(() => {
     if (data) {
-      console.log(data)
       return data.me.scheduleSet.edges.map(({ __typename, ...item }) => item)
     }
     return []
@@ -90,15 +64,7 @@ export default function Schedule () {
     {
       title: 'lbs',
       field: 'node.event.info.lbs',
-      type: 'numeric',
-      validate: (rowData) =>
-        rowData &&
-        rowData.node &&
-        rowData.node.event &&
-        rowData.node.event.info &&
-        rowData.node.event.info.lbs <= 0
-          ? { isValid: false, helperText: 'lbs must be more than 0' }
-          : true
+      type: 'numeric'
     },
     {
       title: 'instructions',
@@ -117,8 +83,7 @@ export default function Schedule () {
     {
       title: 'repeat until',
       field: 'node.repeatUntil',
-      type: 'date',
-      editable: 'never'
+      type: 'date'
     },
     {
       title: 'next pick up date',
@@ -140,14 +105,27 @@ export default function Schedule () {
           exportButton: true
         }}
         editable={{
-          onRowAdd: (newData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                // setData([...initialData, newData])
-                console.log(newData)
-                resolve()
-              }, 1000)
-            }),
+          onRowAdd: async (newData) => {
+            await createSchedule({
+              variables: {
+                scheduleData: {
+                  start: newData.node.start,
+                  end: newData.node.end,
+                  repeat: newData.node.repeat,
+                  repeatUntil: newData.node.repeat,
+                  event: {
+                    info: {
+                      binType: newData.node.event.info.binType,
+                      lbs: newData.node.event.info.lbs,
+                      instructions: newData.node.event.info.instructions
+                    }
+                  }
+                }
+              }
+            }).then(() => {
+              store.dispatch(setScheduleData([...initialData, newData]))
+            })
+          },
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
