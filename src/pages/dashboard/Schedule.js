@@ -1,5 +1,137 @@
-import React from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
+import { useQuery, useMutation } from '@apollo/client'
+import { useSelector } from 'react-redux'
+import MaterialTable from 'material-table'
+import Alert from '@material-ui/lab/Alert'
+import {
+  GET_PICKUP_DATA,
+  CREATE_PICKUP_DATA,
+  UPDATE_PICKUP_DATA,
+  DELETE_PICKUP_DATA
+} from '../../modules/api/'
+import { setPickUpData } from '../../modules/redux/actions/'
+import { store } from '../../modules/redux/storage'
 
-export default function Schedule () {
-  return <div>schedule</div>
+export default function Schedule (props) {
+  const { loading, error, data } = useQuery(GET_PICKUP_DATA)
+  const [successAlert, setSuccessAlert] = useState(false)
+  const [createPickup] = useMutation(CREATE_PICKUP_DATA, {
+    onCompleted: (data) => {
+      if (data.createPickup.success) {
+        setSuccessAlert(true)
+      } else {
+        console.log(data)
+        setSuccessAlert(false)
+      }
+    }
+  })
+  const [updatePickup] = useMutation(UPDATE_PICKUP_DATA, {
+    onCompleted: (data) => {
+      if (data.updatePickup.success) {
+        setSuccessAlert(true)
+      } else {
+        setSuccessAlert(false)
+      }
+    }
+  })
+  const [deletePickup] = useMutation(DELETE_PICKUP_DATA, {
+    onCompleted: (data) => {
+      if (data.deletePickup.success) {
+        setSuccessAlert(true)
+      } else {
+        setSuccessAlert(false)
+      }
+    }
+  })
+
+  const mappedData = useMemo(() => {
+    if (data) {
+      return data.me.pickupinfoSet.edges.map(({ __typename, ...item }) => item)
+    }
+    return []
+  }, [data])
+
+  const initialData = useSelector((state) => state.pickUpData)
+  if (initialData.length < 1) {
+    store.dispatch(setPickUpData(mappedData))
+  }
+  const columns = [
+    {
+      title: 'Bin Type',
+      field: 'node.binType',
+      lookup: {
+        Compost: 'Compost',
+        Landfill: 'Landfill',
+        Wood: 'Wood',
+        Metal: 'Metal',
+        'Paper/Cardboard': 'Paper/Cardboard',
+        'Plastic Wrap': 'Plastic Wrap',
+        'Plastic Bottles/Containers': 'Plastic Bottles/Containers',
+        'Glass Bottles/Containers': 'Glass Bottles/Containers',
+        'Aluminum Cans/Containers': 'Aluminum Cans/Containers',
+        'E-waste': 'E-waste'
+      }
+    },
+    {
+      title: 'lbs',
+      field: 'node.lbs',
+      type: 'numeric'
+    },
+    { title: 'instructions', field: 'node.instructions' }
+  ]
+
+  if (loading) return <div>loading...</div>
+  if (error) return <div>error: {error.message}</div>
+  return (
+    <React.Fragment>
+      <p>{successAlert && <Alert severity="success">Success!</Alert>}</p>
+      <MaterialTable
+        title="Pick Up Info"
+        data={initialData}
+        columns={columns}
+        options={{
+          exportButton: true
+        }}
+        editable={{
+          onRowAdd: async (newData) => {
+            await createPickup({
+              variables: {
+                binType: newData.node.binType,
+                lbs: newData.node.lbs,
+                instructions: newData.node.instructions
+              }
+            }).then(() => {
+              store.dispatch(setPickUpData([...initialData, newData]))
+            })
+          },
+          onRowUpdate: async (newData, oldData) => {
+            await updatePickup({
+              variables: {
+                id: oldData.node.id,
+                binType: newData.node.binType,
+                lbs: newData.node.lbs,
+                instructions: newData.node.instructions
+              }
+            }).then(() => {
+              const dataUpdate = [...initialData]
+              const index = oldData.tableData.id
+              dataUpdate[index] = newData
+              store.dispatch(setPickUpData([...dataUpdate]))
+            })
+          },
+          onRowDelete: async (oldData) =>
+            await deletePickup({
+              variables: {
+                id: oldData.node.id
+              }
+            }).then(() => {
+              const dataDelete = [...initialData]
+              const index = oldData.tableData.id
+              dataDelete.splice(index, 1)
+              store.dispatch(setPickUpData([...dataDelete]))
+            })
+        }}
+      />
+    </React.Fragment>
+  )
 }
