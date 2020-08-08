@@ -139,7 +139,7 @@ function SignUp () {
                     required
                     fullWidth
                     name="password1"
-                    label="Password1"
+                    label="Password"
                     type="password"
                     id="password1"
                     autoComplete="current-password"
@@ -147,7 +147,8 @@ function SignUp () {
                       pattern: /(?=^.{8,15}$)((?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=(.*\d){1,}))((?!.*[",;&|'])|(?=(.*\W){1,}))(?!.*[",;&|'])^.*$/
                     })}
                   />
-                  {errors.password1 && 'password too weak!'}
+                  {errors.password1 &&
+                    'Password must atleast contain an upper-case, lower-case and a number.'}
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -155,7 +156,7 @@ function SignUp () {
                     required
                     fullWidth
                     name="password2"
-                    label="Password2"
+                    label="Confirm Password"
                     type="password"
                     id="password2"
                     autoComplete="current-password"
