@@ -2,12 +2,12 @@ FROM node:14.1-alpine AS builder
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN yarn install
 
 ENV PATH="./node_modules/.bin:$PATH"
 
 COPY . ./
-RUN npm run build
+RUN yarn run build
 
 FROM nginx:1.17-alpine
 RUN apk --no-cache add curl
