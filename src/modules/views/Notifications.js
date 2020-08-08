@@ -29,6 +29,8 @@ export default function Notifications () {
   useQuery(GET_ALL_NOTIFICATIONS, {
     onCompleted: (data) => {
       const edges = data.me.usernotificationSet.edges
+        ? []
+        : data.me.usernotificationSet.edges
       if (edges.length === 0) {
         setInvisible(true)
         setNotifications([
