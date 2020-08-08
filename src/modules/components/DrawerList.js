@@ -12,7 +12,7 @@ function DrawerList () {
       {routes.map(({ primaryText, icon, path }, i) => (
         <ListItem key={i} button component={Link} to={path}>
           <ListItemIcon>
-            <Icon>{icon}</Icon>
+            <Icon color="primary">{icon}</Icon>
           </ListItemIcon>
           <ListItemText
             primary={primaryText}

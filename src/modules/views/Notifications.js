@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
@@ -65,7 +66,7 @@ export default function Notifications () {
         onClick={handleClick}
       >
         <Badge color="error" variant="dot" invisible={invisible}>
-          <NotificationsIcon />
+          <NotificationsNoneIcon />
         </Badge>
       </IconButton>
       <Popover

@@ -14,3 +14,4 @@ export {
 } from './apollo/schedule.js'
 export { GET_USER_SETTINGS, EDIT_USER_SETTINGS } from './apollo/settings'
 export { GET_ALL_NOTIFICATIONS } from './apollo/notifications'
+export { cubeJsApi } from './cubejs/client'

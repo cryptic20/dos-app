@@ -11,7 +11,7 @@ export const routes = [
   },
   {
     primaryText: 'Pick Up',
-    icon: 'delete_sweep',
+    icon: 'local_shipping',
     path: '/dashboard/pickup'
   },
   {
