@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -13,7 +10,7 @@ import Divider from '@material-ui/core/Divider'
 import Badge from '@material-ui/core/Badge'
 
 import { GET_ALL_NOTIFICATIONS } from '../../modules/api/'
-import { useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,20 +25,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Notifications () {
   const [notifications, setNotifications] = useState([])
-  const [newDataBadge, setNewDataBadge] = useState(false)
-  const [invisible, setInvisible] = useState(false)
-  const { loading, error, data } = useQuery(GET_ALL_NOTIFICATIONS, {
+  const [invisible, setInvisible] = useState(true)
+  useQuery(GET_ALL_NOTIFICATIONS, {
     onCompleted: (data) => {
-      setNotifications(data.me.usernotificationSet.edges)
+      const edges = data.me.usernotificationSet.edges
+      if (edges.length === 0) {
+        setInvisible(true)
+        setNotifications([
+          {
+            node: { message: 'No notifications...' }
+          }
+        ])
+      } else {
+        setNotifications(data.me.usernotificationSet.edges)
+      }
     },
     pollInterval: 5000,
     notifyOnNetworkStatusChange: true
   })
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
-  const handleBadgeVisibility = () => {
-    setInvisible(!invisible)
-  }
   const handleClick = (event) => {
     setInvisible(true)
     setAnchorEl(event.currentTarget)

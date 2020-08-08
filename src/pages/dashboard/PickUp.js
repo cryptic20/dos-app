@@ -53,8 +53,6 @@ export default function Table () {
 
   const completedPickUpDataMemo = useMemo(() => {
     if (data) {
-      console.log(data)
-
       return data.me.completedpickupSet.edges.map(
         ({ __typename, ...item }) => item
       )
@@ -67,6 +65,7 @@ export default function Table () {
     store.dispatch(setPickUpData(pickUpDataMemo))
   }
   const columns = [
+    { title: 'id', field: 'node.id', type: 'numeric' },
     {
       title: 'Bin Type',
       field: 'node.binType',
@@ -152,7 +151,8 @@ export default function Table () {
         title="Completed Pick Ups"
         data={completedPickUpDataMemo}
         columns={[
-          { title: 'pick up date', field: 'node.pickUpDate', type: 'datetime' },
+          { title: 'pickup id', field: 'node.pickUpInfo.id', type: 'numeric' },
+          { title: 'pickup date', field: 'node.pickUpDate', type: 'datetime' },
           { title: 'bin type', field: 'node.pickUpInfo.binType' },
           { title: 'lbs', field: 'node.pickUpInfo.lbs' },
           { title: 'instructions', field: 'node.pickUpInfo.instructions' }
