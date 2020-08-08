@@ -2,7 +2,7 @@ import React from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 
-import { Line, Bar, Pie } from 'react-chartjs-2'
+import { Line, Bar } from 'react-chartjs-2'
 
 const COLORS_SERIES = [
   '#04c8bb',
@@ -26,8 +26,8 @@ const COLORS_SERIES = [
 
 export const numberRender = ({ resultSet, pivotConfig }) => (
   <div>
-    {resultSet.seriesNames().map((s) => (
-      <Typography variant="h6" align="center">
+    {resultSet.seriesNames().map((s, i) => (
+      <Typography key={i} variant="h6" align="center">
         {resultSet.totalRow()[s.key]}
       </Typography>
     ))}

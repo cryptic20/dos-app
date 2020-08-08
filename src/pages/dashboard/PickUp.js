@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'

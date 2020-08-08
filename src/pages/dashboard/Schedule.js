@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { useSelector } from 'react-redux'
 import MaterialTable from 'material-table'
@@ -10,10 +10,9 @@ import {
 } from '../../modules/api/'
 import { setScheduleData } from '../../modules/redux/actions/'
 import { store } from '../../modules/redux/storage'
-import { onError } from '@apollo/client/link/error'
 
 export default function Schedule () {
-  const { loading, error, data, refetch } = useQuery(GET_SCHEDULE_DATA)
+  const { loading, error, data } = useQuery(GET_SCHEDULE_DATA)
   const [successAlert, setSuccessAlert] = useState(false)
   const [createSchedule] = useMutation(CREATE_SCHEDULE_DATA, {
     onCompleted: (data) => {

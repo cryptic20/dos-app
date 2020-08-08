@@ -3,8 +3,6 @@ import withRoot from '../../modules/style/withRoot'
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBarViews from '../../modules/views/AppBarViews'
-import { useHistory, useLocation } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -35,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ForgotPassword () {
   const classes = useStyles()
-  const [sent, setSent] = React.useState(false)
 
   return (
     <React.Fragment>

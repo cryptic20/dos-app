@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -8,14 +8,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 import { GET_USER_SETTINGS, EDIT_USER_SETTINGS } from '../../modules/api/'
 import { useMutation, useQuery } from '@apollo/client'
-import { makeStyles } from '@material-ui/core/styles'
 
 function Settings () {
   const [state, setState] = useState({
     notify: false,
     reminder: false
   })
-  const { loading, error, data, refetch } = useQuery(GET_USER_SETTINGS, {
+  const { loading, error, refetch } = useQuery(GET_USER_SETTINGS, {
     onCompleted: (data) => {
       if (data) {
         setState({
