@@ -67,8 +67,9 @@ function SignIn () {
   const dispatch = useDispatch()
   const [errorAlert, setErrorAlert] = useState(false)
   const { register, handleSubmit } = useForm()
-  const isAuthenticated = useSelector((state) => state.isAuthenticated)
-  const userVerified = useSelector((state) => state.userInfo.verified)
+  const state = useSelector((state) => state)
+  const isAuthenticated = state.isAuthenticated
+  const userVerified = state.userInfo.verified
   const [tokenAuth, { loading, error }] = useMutation(LOG_IN, {
     onCompleted: (data) => {
       console.log(data)
