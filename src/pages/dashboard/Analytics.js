@@ -9,20 +9,13 @@ import TotalLbsPerBin from '../../modules/views/TotalLbsPerBin'
 import TotalLbs from '../../modules/views/TotalLbs'
 import TotalMoneyEarned from '../../modules/views/TotalMoneyEarned'
 import TotalCompletedPickUps from '../../modules/views/TotalCompletedPickUps'
-import TotalPickUps from '../../modules/views/TotalPickUps'
+import TotalWasteByCity from '../../modules/views/TotalWasteByCity'
 import CardAnalyticsTemplate from '../../modules/components/CardAnalyticsTemplate'
 
 export default function Analytics () {
   return (
     <React.Fragment>
       <Grid container spacing={4} justify="space-evenly">
-        <Grid item xs={12} sm={5} md={5} lg={3} align="center">
-          <CardAnalyticsTemplate
-            icon={<LocalShippingIcon color="primary" />}
-            title="Total Pickups"
-            chart={<TotalPickUps />}
-          />
-        </Grid>
         <Grid item xs={12} sm={5} md={5} lg={3} align="center">
           <CardAnalyticsTemplate
             icon={<CheckCircleIcon color="primary" />}
@@ -33,7 +26,7 @@ export default function Analytics () {
         <Grid item xs={12} sm={5} md={5} lg={3} align="center">
           <CardAnalyticsTemplate
             icon={<EcoIcon color="primary" />}
-            title="Total Waste Diverted"
+            title="Total Waste Diverted By You"
             chart={<TotalLbs />}
           />
         </Grid>
@@ -42,6 +35,13 @@ export default function Analytics () {
             icon={<MonetizationOnIcon color="primary" />}
             title="Total Money Earned"
             chart={<TotalMoneyEarned />}
+          />
+        </Grid>
+        <Grid item xs={12} sm={5} md={5} lg={3} align="center">
+          <CardAnalyticsTemplate
+            icon={<LocalShippingIcon color="primary" />}
+            title="Total Waste Diverted In Your City"
+            chart={<TotalWasteByCity />}
           />
         </Grid>
       </Grid>

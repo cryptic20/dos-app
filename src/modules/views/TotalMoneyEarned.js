@@ -10,7 +10,10 @@ function TotalMoneyEarned () {
   return (
     <QueryRenderer
       query={{
-        measures: ['UsersPickupinfo.totalLbs'],
+        measures: ['UsersPickupinfo.totalMoneyEarned'],
+        timeDimensions: [],
+        order: {},
+        dimensions: [],
         filters: [
           {
             dimension: 'UsersCustomuser.email',

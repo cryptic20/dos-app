@@ -4,19 +4,21 @@ import { cubeJsApi } from '../../modules/api/'
 import { useSelector } from 'react-redux'
 import { renderChart, numberRender } from '../components/Chart'
 
-function TotalPickUps () {
+function TotalWasteByCity () {
   const state = useSelector((state) => state.userInfo)
-  const values = [state.email]
+  const values = [state.address.city]
   return (
     <QueryRenderer
       query={{
-        measures: ['UsersPickupinfo.count'],
-
+        measures: ['UsersPickupinfo.totalLbs'],
+        timeDimensions: [],
+        order: {},
+        dimensions: [],
         filters: [
           {
-            dimension: 'UsersCustomuser.email',
+            dimension: 'UsersAddress.city',
             operator: 'equals',
-            values: values
+            values: values || ['Bronx']
           }
         ]
       }}
@@ -26,4 +28,4 @@ function TotalPickUps () {
   )
 }
 
-export default TotalPickUps
+export default TotalWasteByCity
