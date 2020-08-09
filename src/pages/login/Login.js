@@ -17,10 +17,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   setUserJWT,
   setAuthenticatedStatus,
-  setUserVerified,
   setUserRefreshToken,
-  setUserUsername,
-  setUserEmail
+  setUserInfo
 } from '../../modules/redux/actions/'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
@@ -70,16 +68,14 @@ function SignIn () {
   const [errorAlert, setErrorAlert] = useState(false)
   const { register, handleSubmit } = useForm()
   const isAuthenticated = useSelector((state) => state.isAuthenticated)
-  const userVerified = useSelector((state) => state.userVerified)
+  const userVerified = useSelector((state) => state.userInfo.verified)
   const [tokenAuth, { loading, error }] = useMutation(LOG_IN, {
     onCompleted: (data) => {
+      console.log(data)
       if (!data.tokenAuth.success) {
         setErrorAlert(true)
       } else {
-        console.log(data)
-        dispatch(setUserVerified(data.tokenAuth.user.verified))
-        dispatch(setUserUsername(data.tokenAuth.user.username))
-        dispatch(setUserEmail(data.tokenAuth.user.email))
+        dispatch(setUserInfo(data.tokenAuth.user))
         dispatch(setUserJWT(data.tokenAuth.token))
         dispatch(setUserRefreshToken(data.tokenAuth.refreshToken))
         dispatch(setAuthenticatedStatus(true))

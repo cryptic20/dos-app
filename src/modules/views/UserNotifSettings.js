@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import Grid from '@material-ui/core/Grid'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 import { GET_USER_SETTINGS, EDIT_USER_SETTINGS } from '../../modules/api/'
 import { useMutation, useQuery } from '@apollo/client'
 
@@ -45,29 +45,33 @@ function UserNotifSettings () {
   if (error) return <div>{error}</div>
   return (
     <React.Fragment>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={state.notify}
-              onChange={handleChange}
-              name="notify"
+      <Card>
+        <CardContent>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={state.notify}
+                  onChange={handleChange}
+                  name="notify"
+                />
+              }
+              label="Notify when bin has been picked up"
             />
-          }
-          label="Notify when bin has been picked up"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={state.reminder}
-              onChange={handleChange}
-              name="reminder"
-              color="secondary"
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={state.reminder}
+                  onChange={handleChange}
+                  name="reminder"
+                  color="secondary"
+                />
+              }
+              label="Remind me when a pickup is scheduled for the following day"
             />
-          }
-          label="Remind me when a pickup is scheduled for the following day"
-        />
-      </FormGroup>
+          </FormGroup>
+        </CardContent>
+      </Card>
     </React.Fragment>
   )
 }

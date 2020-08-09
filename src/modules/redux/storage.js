@@ -1,12 +1,12 @@
 import { createStore } from 'redux'
-import { allReducers } from './reducers/'
+import { rootReducer } from './reducers/'
 import { loadState, saveState } from './localStorage'
 import { throttle } from 'lodash'
 
 const persistedState = loadState()
 
 export const store = createStore(
-  allReducers,
+  rootReducer,
   persistedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )

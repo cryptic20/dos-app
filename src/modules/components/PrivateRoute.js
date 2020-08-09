@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 export default function PrivateRoute ({ children, ...rest }) {
   const isAuthenticated = useSelector((state) => state.isAuthenticated)
-  const userVerified = useSelector((state) => state.userVerified)
+  const userVerified = useSelector((state) => state.userInfo.verified)
 
   return (
     <Route

@@ -28,18 +28,20 @@ export default function Notifications () {
   const [invisible, setInvisible] = useState(true)
   useQuery(GET_ALL_NOTIFICATIONS, {
     onCompleted: (data) => {
-      const edges = data.me.usernotificationSet.edges
-        ? []
-        : data.me.usernotificationSet.edges
-      if (edges.length === 0) {
-        setInvisible(true)
-        setNotifications([
-          {
-            node: { message: 'No notifications...' }
-          }
-        ])
-      } else {
-        setNotifications(data.me.usernotificationSet.edges)
+      if (data && data.me && data.me.usernotificationSet) {
+        const edges = data.me.usernotificationSet.edges
+          ? []
+          : data.me.usernotificationSet.edges
+        if (edges.length === 0) {
+          setInvisible(true)
+          setNotifications([
+            {
+              node: { message: 'No notifications...' }
+            }
+          ])
+        } else {
+          setNotifications(data.me.usernotificationSet.edges)
+        }
       }
     },
     pollInterval: 5000,

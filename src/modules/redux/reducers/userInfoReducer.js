@@ -1,12 +1,17 @@
-export const userInfoReducer = (
-  state = { username: '', email: '' },
-  action
-) => {
+export const userInfoReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'SET_USER_USERNAME':
-      return (state = { ...state, username: action.data })
-    case 'SET_USER_EMAIL':
-      return (state = { ...state, email: action.data })
+    case 'SET_USER_INFO':
+      return (state = action.data)
+    case 'UPDATE_USER_ADDRESS':
+      return (state = { ...state, address: action.newAddress })
+    case 'UPDATE_USER_INFO':
+      return (state = {
+        ...state,
+        firstName: action.newInfo.firstName,
+        lastName: action.newInfo.lastName,
+        type: action.newInfo.type,
+        phoneNumber: action.newInfo.phoneNumber
+      })
     default:
       return state
   }

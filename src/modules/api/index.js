@@ -14,4 +14,6 @@ export {
 } from './apollo/schedule.js'
 export { GET_USER_SETTINGS, EDIT_USER_SETTINGS } from './apollo/settings'
 export { GET_ALL_NOTIFICATIONS } from './apollo/notifications'
+export { GET_USER_ADDRESS, EDIT_USER_ADDRESS } from './apollo/address'
 export { cubeJsApi } from './cubejs/client'
+export { UPDATE_USER } from './apollo/user'

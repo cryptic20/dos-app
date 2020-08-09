@@ -11,13 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import Dashboard from '@material-ui/icons/Dashboard'
-import { useDispatch } from 'react-redux'
-import {
-  setUserJWT,
-  setAuthenticatedStatus,
-  setUserVerified,
-  setUserRefreshToken
-} from '../redux/actions/'
+import { store } from '../redux/storage'
 import { useHistory, useLocation } from 'react-router-dom'
 
 function SignedInIcons () {
@@ -32,7 +26,6 @@ function SignedInIcons () {
   const handleClose = () => {
     setOpen(false)
   }
-  const dispatch = useDispatch()
   const location = useLocation()
   const isHome = location.pathname === '/'
   const history = useHistory()
@@ -75,10 +68,7 @@ function SignedInIcons () {
           </Button>
           <Button
             onClick={() => {
-              dispatch(setUserJWT(''))
-              dispatch(setUserRefreshToken(''))
-              dispatch(setAuthenticatedStatus(false))
-              dispatch(setUserVerified(false))
+              store.dispatch({ type: 'USER_LOGOUT' })
               history.push('/')
             }}
             color="primary"

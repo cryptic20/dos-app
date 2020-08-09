@@ -10,7 +10,19 @@ export const LOG_IN = gql`
       user {
         email
         username
+        firstName
+        lastName
         verified
+        phoneNumber
+        type
+        address {
+          addressLine1
+          addressLine2
+          city
+          state
+          zipCode
+          country
+        }
       }
     }
   }

@@ -8,11 +8,6 @@ export const setAuthenticatedStatus = (check) => ({
   check
 })
 
-export const setUserVerified = (check) => ({
-  type: 'SET_USER_VERIFIED',
-  check
-})
-
 export const setUserRefreshToken = (token) => ({
   type: 'SET_USER_REFRESH_TOKEN',
   token
@@ -22,22 +17,23 @@ export const setPickUpData = (data) => ({
   type: 'SET_PICKUP_DATA',
   data
 })
+
 export const setScheduleData = (data) => ({
   type: 'SET_SCHEDULE_DATA',
   data
 })
 
-export const setUserEmail = (data) => ({
-  type: 'SET_USER_EMAIL',
+export const setUserInfo = (data) => ({
+  type: 'SET_USER_INFO',
   data
 })
 
-export const setUserUsername = (data) => ({
-  type: 'SET_USER_USERNAME',
-  data
+export const updateUserAddress = (newAddress) => ({
+  type: 'UPDATE_USER_ADDRESS',
+  newAddress
 })
 
-export const logOut = (state) => ({
-  type: 'USER_LOGOUT',
-  state
+export const updateUserInfo = (newInfo) => ({
+  type: 'UPDATE_USER_INFO',
+  newInfo
 })
