@@ -65,7 +65,7 @@ export default function Table () {
     store.dispatch(setPickUpData(pickUpDataMemo))
   }
   const columns = [
-    { title: 'id', field: 'node.id', type: 'numeric' },
+    { title: 'id', field: 'node.id', type: 'numeric', editable: 'never' },
     {
       title: 'Bin Type',
       field: 'node.binType',
