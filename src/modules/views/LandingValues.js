@@ -12,7 +12,8 @@ const styles = (theme) => ({
   root: {
     display: 'flex',
     overflow: 'hidden',
-    backgroundColor: theme.palette.common.white
+    backgroundColor: theme.palette.common.white,
+    textAlign: 'center'
   },
   container: {
     marginTop: theme.spacing(10),
@@ -65,7 +66,7 @@ function LandingValues (props) {
             <div className={classes.item}>
               <LocalShippingIcon fontSize="large" color="primary" />
               <Typography variant="h6" className={classes.title}>
-                Lorem Ipsum
+                schedule pick up
               </Typography>
               <Typography variant="h5">
                 {'Ut enim ad minim veniam,'}

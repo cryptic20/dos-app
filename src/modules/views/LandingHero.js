@@ -49,7 +49,7 @@ function LandingHero (props) {
         variant="h5"
         className={classes.h5}
       >
-        Help the environment and get rewarded!
+        Help the environment and get rewarded
       </Typography>
       <Button
         color="secondary"
