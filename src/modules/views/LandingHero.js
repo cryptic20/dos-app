@@ -5,8 +5,7 @@ import Button from '../components/Button'
 import Typography from '../components/Typography'
 import LandingHeroLayout from './LandingHeroLayout'
 
-const backgroundImage =
-  'https://images.unsplash.com/photo-1528190336454-13cd56b45b5a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'
+const backgroundImage = 'https://source.unsplash.com/random/?recycling'
 
 const styles = (theme) => ({
   background: {
@@ -15,6 +14,7 @@ const styles = (theme) => ({
     backgroundPosition: 'center'
   },
   button: {
+    marginTop: theme.spacing(5),
     minWidth: 200
   },
   h5: {

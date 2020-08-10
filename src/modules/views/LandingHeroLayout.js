@@ -45,7 +45,7 @@ const styles = (theme) => ({
   },
   arrowDown: {
     position: 'absolute',
-    bottom: theme.spacing(4)
+    bottom: theme.spacing(1)
   }
 })
 
