@@ -72,7 +72,6 @@ function SignIn () {
   const userVerified = state.userInfo.verified
   const [tokenAuth, { loading, error }] = useMutation(LOG_IN, {
     onCompleted: (data) => {
-      console.log(data)
       if (!data.tokenAuth.success) {
         setErrorAlert(true)
       } else {
