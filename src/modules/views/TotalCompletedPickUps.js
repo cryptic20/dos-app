@@ -12,6 +12,12 @@ function TotalCompleted () {
     <QueryRenderer
       query={{
         measures: ['UsersCompletedpickup.count'],
+        timeDimensions: [
+          {
+            dimension: 'UsersCompletedpickup.pickUpDate'
+          }
+        ],
+        order: {},
         filters: [
           {
             dimension: 'UsersCustomuser.email',
