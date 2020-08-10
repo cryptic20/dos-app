@@ -7,7 +7,7 @@ function VerifyEmail () {
   return (
     <React.Fragment>
       <AppBarViews />
-      <Typography>Pleae verify your email!</Typography>
+      <Typography>Please verify your email!</Typography>
     </React.Fragment>
   )
 }
